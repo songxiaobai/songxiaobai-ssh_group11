@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="good" location="0,0" size="0,0">
+    <action name="goodInfoActoin_*" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="numsuccess" />
+    </action>
+    <action name="gysActoin_*" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="orderActoin_*" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="userActoin_*" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+</Struts2Diagram>
+

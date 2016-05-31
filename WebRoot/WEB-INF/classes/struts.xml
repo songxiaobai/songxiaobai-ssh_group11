@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="good" namespace="/" extends="json-default">
+<action name="goodInfoActoin_*" class="GoodAction" method="{1}">
+	<result name="success" type="json">
+		<param name="root">resultString</param>
+	</result>
+	<result name="numsuccess" type="json">
+		<param name="root">resultString</param>
+	</result>
+</action>
+<action name="gysActoin_*" class="GysAction" method="{1}">
+	<result name="success" type="json">
+		<param name="root">resultString</param>
+	</result>
+</action>
+<action name="orderActoin_*" class="OrderAction" method="{1}">
+	<result name="success" type="json">
+		<param name="root">resultString</param>
+	</result>
+</action>
+<action name="userActoin_*" class="UserAction" method="{1}">
+	<result name="success" type="json">
+		<param name="root">resultString</param>
+	</result>
+</action>
+<action name="hisActoin_*" class="HisAction" method="{1}">
+	<result name="success" type="json">
+		<param name="root">resultString</param>
+	</result>
+</action>
+</package>
+</struts>    

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="ADDRESS" schema="LZX">
+		<primary-key>
+			<key-column name="ADDRESS_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="ISDEFAULT" type="java.lang.Integer"></column>
+		<column name="USER_ID" type="java.lang.Integer"></column>
+		<column name="LINKTEL" type="java.lang.Integer"></column>
+	</table>
+	<table name="APPRAISE" schema="LZX">
+		<primary-key>
+			<key-column name="APPRAISE_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="USER_ID" type="java.lang.Integer"></column>
+		<column name="APPRAISE_SCORE" type="java.lang.Integer"></column>
+		<column name="APPRAISE_DATE" type="java.lang.Date"></column>
+	</table>
+	<table name="CHECK_CHECK" schema="LZX">
+		<primary-key>
+			<key-column name="CHECK_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="STAT_NUM" type="java.lang.Integer"></column>
+		<column name="CHECK_NUM" type="java.lang.Integer"></column>
+		<column name="CHECK_DATE" type="java.lang.Date"></column>
+		<column name="CHECK_TIME" type="java.lang.Date"></column>
+	</table>
+	<table name="GOOD_IMG" schema="LZX">
+		<primary-key>
+			<key-column name="GOOD_IMG_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+	</table>
+	<table name="GOOD_INFO" schema="LZX">
+		<primary-key>
+			<key-column name="GOOD_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_PRICE" type="java.lang.Double"></column>
+		<column name="GOOD_ADDDATE" type="java.lang.Date"></column>
+		<column name="TYPE_ID" type="java.lang.Integer"></column>
+		<column name="ABATE_PRICE" type="java.lang.Double"></column>
+	</table>
+	<table name="GOOD_ORDER" schema="LZX">
+		<primary-key>
+			<key-column name="ORDER_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="USER_ID" type="java.lang.Integer"></column>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="ORDER_DATE" type="java.lang.Date"></column>
+		<column name="SOLDER_COUNT" type="java.lang.Integer"></column>
+		<column name="ORDER_MONEY" type="java.lang.Double"></column>
+		<column name="ORDER_STATE" type="java.lang.Integer"></column>
+	</table>
+	<table name="GOOD_TYPE" schema="LZX">
+		<primary-key>
+			<key-column name="TYPE_ID" type="java.lang.Integer" />
+		</primary-key>
+	</table>
+	<table name="GYS" schema="LZX">
+		<primary-key>
+			<key-column name="GYS_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GYS_TEL" type="java.lang.Integer"></column>
+	</table>
+	<table name="HIS" schema="LZX">
+		<primary-key>
+			<key-column name="HIS_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="USER_ID" type="java.lang.Integer"></column>
+		<column name="MONEY" type="java.lang.Double"></column>
+		<column name="HIS_TYPE" type="java.lang.Integer"></column>
+		<column name="HIS_DATE" type="java.lang.Date"></column>
+	</table>
+	<table name="SHOP_BACK" schema="LZX">
+		<primary-key>
+			<key-column name="SHOP_BACK_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="GOOD_PRICE" type="java.lang.Double"></column>
+		<column name="SHOP_NUM" type="java.lang.Integer"></column>
+		<column name="ALL_PRICE" type="java.lang.Double"></column>
+		<column name="BACK_DATE" type="java.lang.Date"></column>
+	</table>
+	<table name="SHOP_CAR" schema="LZX">
+		<primary-key>
+			<key-column name="SHOP_CAR_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="SHOP_NUM" type="java.lang.Integer"></column>
+		<column name="ALL_PRICE" type="java.lang.Double"></column>
+		<column name="USER_ID" type="java.lang.Integer"></column>
+	</table>
+	<table name="STOCK" schema="LZX">
+		<primary-key>
+			<key-column name="STOCK_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="GOOD_ID" type="java.lang.Integer"></column>
+		<column name="GYS_ID" type="java.lang.Integer"></column>
+		<column name="STOCK_NUM" type="java.lang.Integer"></column>
+		<column name="STOCK_UNIT_PRICE" type="java.lang.Double"></column>
+		<column name="STOCK_PRICE" type="java.lang.Double"></column>
+		<column name="STOCK_DATE" type="java.lang.Date"></column>
+	</table>
+	<table name="STOCK_BACK" schema="LZX">
+		<primary-key>
+			<key-column name="STOCK_BACK_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="STOCK_ID" type="java.lang.Integer"></column>
+		<column name="BACK_NUM" type="java.lang.Integer"></column>
+		<column name="BACK_UNIT_PRICE" type="java.lang.Double"></column>
+		<column name="BACK_PRICE" type="java.lang.Double"></column>
+		<column name="BACK_DATE" type="java.lang.Date"></column>
+	</table>
+	<table name="USER_INFO" schema="LZX">
+		<primary-key>
+			<key-column name="USER_ID" type="java.lang.Integer" />
+		</primary-key>
+		<column name="REGEISTER_DATE" type="java.lang.Date"></column>
+		<column name="SEX" type="java.lang.Integer"></column>
+		<column name="USER_STATE" type="java.lang.Integer"></column>
+		<column name="ROLE" type="java.lang.Integer"></column>
+		<column name="BALANCE" type="java.lang.Double"></column>
+	</table>
+</hibernate-reverse-engineering>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver">
+		</property>
+		<property name="url" value="jdbc:oracle:thin:@ADMIN-PC:1521:lzx">
+		</property>
+		<property name="username" value="lzx"></property>
+		<property name="password" value="lzx6417"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/cls/pojo/GoodInfo.hbm.xml</value>
+				<value>com/cls/pojo/Address.hbm.xml</value>
+				<value>com/cls/pojo/Appraise.hbm.xml</value>
+				<value>com/cls/pojo/CheckCheck.hbm.xml</value>
+				<value>com/cls/pojo/GoodImg.hbm.xml</value>
+				<value>com/cls/pojo/GoodOrder.hbm.xml</value>
+				<value>com/cls/pojo/GoodType.hbm.xml</value>
+				<value>com/cls/pojo/Gys.hbm.xml</value>
+				<value>com/cls/pojo/His.hbm.xml</value>
+				<value>com/cls/pojo/ShopBack.hbm.xml</value>
+				<value>com/cls/pojo/ShopCar.hbm.xml</value>
+				<value>com/cls/pojo/UserInfo.hbm.xml</value>
+				<value>com/cls/pojo/Stock.hbm.xml</value>
+				<value>com/cls/pojo/StockBack.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!--配置事务处理-->
+	<!--配置事务管理的bean，这个bean作为公共的使用事务管理的bean，在开发时会事先配置好，不需要各个业务模块的配置-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--配置传播特性-->
+	<tx:advice id="textAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="doIns" propagation="REQUIRED" />
+			<tx:method name="doDel" propagation="REQUIRED" />
+			<tx:method name="doUpd" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="doUpd*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<!--事务处理的类-->
+	<aop:config>
+		<aop:pointcut id="allTextAdvice" expression="execution(* com.cls.service.*.*(..))" />
+		<aop:advisor advice-ref="textAdvice" pointcut-ref="allTextAdvice" />
+	</aop:config>
+	<!-- 配置His业务层包 -->
+	<bean id="HisAction" class="com.cls.action.HisAction">
+		<property name="hisservice" ref="hisservice"></property>
+		<property name="userservice" ref="hisservice1"></property>
+	</bean>
+	<bean id="hisservice" class="com.cls.service.impl.HisServiceImpl">
+		<property name="hisdao" ref="hisdao"></property>
+	</bean>
+	<bean id="hisservice1" class="com.cls.service.impl.UserServiceImpl">
+		<property name="userdao" ref="UserDao"></property>
+	</bean>
+	<bean id="hisdao" class="com.cls.dao.impl.HisDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="UserDao" class="com.cls.dao.impl.UserImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置user业务层包 -->
+	<bean id="UserAction" class="com.cls.action.UserAcion">
+		<property name="userservice" ref="userservice"></property>
+	</bean>
+	<bean id="userservice" class="com.cls.service.impl.UserServiceImpl">
+		<property name="userdao" ref="Userdao"></property>
+	</bean>
+	<bean id="Userdao" class="com.cls.dao.impl.UserImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置order业务层包 -->
+	<bean id="OrderAction" class="com.cls.action.GoodOrderAction">
+		<property name="orderservice" ref="orderservice"></property>
+		<property name="goodservice" ref="orderservice1"></property>
+		<property name="userservice" ref="orderservice2"></property>
+	</bean>
+	<bean id="orderservice" class="com.cls.service.impl.OrderServiceImpl">
+		<property name="orderdao" ref="orderdao"></property>	
+	</bean>
+	<bean id="orderservice1" class="com.cls.service.impl.ServiceImpl">
+		<property name="goodinfoDao" ref="goodinfoDao"></property>
+	</bean>
+	<bean id="orderservice2" class="com.cls.service.impl.UserServiceImpl">
+		<property name="userdao" ref="userdao"></property>
+	</bean>
+	<bean id="orderdao" class="com.cls.dao.impl.OrderDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="goodinfoDao" class="com.cls.dao.impl.GoodInfoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userdao" class="com.cls.dao.impl.UserImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置Stock业务层包 -->
+	<bean id="StockAction" class="com.cls.action.StockAction">
+		<property name="stockservice" ref="stockservice"></property>
+	</bean>
+	<bean id="stockservice" class="com.cls.service.impl.StockServiceImpl">
+		<property name="stockdao" ref="stockdao"></property>
+	</bean>
+	<bean id="stockdao" class="com.cls.dao.impl.StockImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--配置gys业务层包-->
+	<bean id="GysAction" class="com.cls.action.GysAction">
+		<property name="gysservice" ref="gysservice"></property>
+	</bean>
+	<bean id="gysservice" class="com.cls.service.impl.GysServiceImpl">
+		<property name="gysdao" ref="gysdao"></property>
+	</bean>
+	<bean id="gysdao" class="com.cls.dao.impl.Gysimpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!--配置goodinfo业务层包-->
+	<bean id="GoodAction" class="com.cls.action.GoodInfoAction">
+		<property name="goodservice" ref="Goodservice"></property>
+		<property name="checkservice" ref="Goodservice1"></property>
+	</bean>
+	
+	
+	<bean id="Goodservice" class="com.cls.service.impl.ServiceImpl">
+		<property name="goodinfoDao" ref="GoodDao"></property>
+	</bean>
+	<bean id="Goodservice1" class="com.cls.service.impl.CheckCheckServiceImpl">
+		<property name="checkdao" ref="CheckDao"></property>
+	</bean>
+	
+	
+	<bean id="GoodDao" class="com.cls.dao.impl.GoodInfoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="CheckDao" class="com.cls.dao.impl.CheckCheckDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!--<import resource="applicationContext.xml"/>
+		-->
+</beans>
